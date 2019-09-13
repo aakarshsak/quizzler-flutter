@@ -1,7 +1,7 @@
 import 'package:quizzler/questions.dart';
 
 class Brain {
-  List<Question> questionsBank = [
+  static List<Question> questionsBank = [
     Question('Some cats are actually allergic to humans', true),
     Question('You can lead a cow down stairs but not up stairs.', false),
     Question('Approximately one quarter of human bones are in the feet.', true),
@@ -29,17 +29,27 @@ class Brain {
         true),
   ];
 
-  int currQuest = 0;
+  static int currQuest = 0;
 
-  void updateQuestion() {
-    currQuest++;
-  }
-
-  String getQuest() {
+  static String getQuest() {
     return questionsBank[currQuest].getQ();
   }
 
-  bool getAns() {
+  static bool getAns() {
     return questionsBank[currQuest].getA();
+  }
+
+  static bool answerCheckIcons(bool ans) {
+    bool currAns = questionsBank[currQuest].getA();
+    bool res;
+    if (currAns == ans) {
+      res = true;
+    } else {
+      res = false;
+    }
+
+    if (currQuest < questionsBank.length - 1) currQuest++;
+
+    return res;
   }
 }
